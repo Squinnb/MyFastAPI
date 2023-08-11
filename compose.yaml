@@ -1,0 +1,38 @@
+# docker-compose.yml
+
+version: '3.8'
+
+networks:
+  fastnetwork:
+    external: true
+      
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/myfastdb
+    depends_on:
+      - db
+    networks:
+      - fastnetwork
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=myfastdb
+    networks:
+      - fastnetwork
+volumes:
+  postgres_data:
