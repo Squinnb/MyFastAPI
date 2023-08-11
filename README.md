@@ -1,0 +1,2 @@
+# MyFastAPI
+Docker, FastAPI, Postgres, 😤
