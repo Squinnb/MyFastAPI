@@ -10,6 +10,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 def root():
     return { "app": "Welcome ..." }
 
-@app.get("/shit/")
+@app.get("/token/")
 async def auth(token: Annotated[str, Depends(oauth2_scheme)]):
     return {"token": token}
